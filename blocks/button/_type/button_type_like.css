@@ -1,0 +1,16 @@
+.button_type_like {
+    background-image: url(../../../images/LikeButton.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20.76px;
+    height: 18.13px;
+}
+
+.button_type_like:hover {
+    opacity: 0.5;
+}
+
+.button_type_like:active {
+    background-image: url(../../../images/LikeButtonActive.svg);
+    opacity: 1;
+}
