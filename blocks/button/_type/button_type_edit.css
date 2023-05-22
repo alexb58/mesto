@@ -4,6 +4,10 @@
     align-self: center;
     margin-left: 16px;
     background-image: url(../../../images/EditButton.svg);
+    background-size: 10px 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid white;
 }
 
 .button_type_edit:hover {
@@ -12,6 +16,9 @@
 
 @media screen and (max-width: 767px) {
     .button_type_edit {
+        width: 18px;
+        height: 18px;
+        background-size: 7.5px 7.5px;
         margin-left: 10px;
     }
 }

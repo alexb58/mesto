@@ -3,15 +3,21 @@
     height: 50px;
     align-self: center;
     background-image: url(../../../images/AddButton.svg);
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid white;
 }
+
 
 .button_type_add:hover {
     opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
-    .button_type_add {        
-        background-image: url(../../../images/AddButtonMobile.svg);
+    .button_type_add {
+        background-image: url(../../../images/AddButton.svg);
+        background-size: 16px 16px;
         width: 282px;
 }
 }
