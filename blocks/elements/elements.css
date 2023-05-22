@@ -1,7 +1,7 @@
 .elements {  
     display: grid;
     max-width: 880px;
-    margin: 51px auto 0px;
+    margin: 51px auto 0;
     grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
     grid-template-rows: repeat(2, 1fr);
     gap: 16px;
@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 767px) {
     .elements {
-        margin: 36px auto 0px;
-        gap: 0px;
+        margin: 36px auto 0;
+        gap: 0;
     }
 }
