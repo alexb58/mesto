@@ -1,12 +1,13 @@
 .button_type_save {
-    background: #000000;
+    background: rgba(0, 0, 0);
     border-radius: 5px;
     width: 358px;
     height: 50px;
+    margin-top: 18px;
 }
 
 .button_type_save:hover {
-    opacity: 0.8;
+    background: rgba(0, 0, 0, 0.8);
 }
 
 @media screen and (max-width: 767px) {
