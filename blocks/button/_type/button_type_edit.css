@@ -1,0 +1,17 @@
+.button_type_edit {
+    width: 24px;
+    height: 24px;
+    align-self: center;
+    margin-left: 16px;
+    background-image: url(../../../images/EditButton.svg);
+}
+
+.button_type_edit:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+    .button_type_edit {
+        margin-left: 10px;
+    }
+}
