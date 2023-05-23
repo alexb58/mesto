@@ -4,6 +4,10 @@
     width: 358px;
     height: 50px;
     margin-top: 18px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
 }
 
 .button_type_save:hover {
@@ -14,5 +18,8 @@
     .button_type_save {
         width: 238px;
         height: 46px;
+        font-size: 14px;
+        line-height: 17px;
+        margin-top: 22px;
     }
 }
