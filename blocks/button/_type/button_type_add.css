@@ -7,6 +7,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid white;
+    border-radius: 2px;
 }
 
 
@@ -16,8 +17,7 @@
 
 @media screen and (max-width: 767px) {
     .button_type_add {
-        background-image: url(../../../images/AddButton.svg);
         background-size: 16px 16px;
         width: 282px;
-}
+    }
 }
