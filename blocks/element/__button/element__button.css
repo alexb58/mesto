@@ -1,0 +1,5 @@
+.element__button {
+    background-image: url(../../../images/LikeButton.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
