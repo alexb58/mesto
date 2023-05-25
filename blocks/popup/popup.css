@@ -10,4 +10,6 @@
     display: flex;
     flex-direction: column;
     visibility: hidden;
+    opacity: 0;
+    transition: visibility 300ms linear, opacity 300ms linear;
 }

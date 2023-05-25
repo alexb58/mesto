@@ -25,48 +25,6 @@
             <button class="button button_type_add" type="button"></button>
         </section>
         <section class="elements">
-            <div class="element">
-                <img src="./images/kirill-pershin-1088404-unsplash.png" class="element__photo" alt="Карачаевск">
-                <div class="element__info">
-                    <h2 class="element__text">Карачаевск</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img src="./images/kirill-pershin-1404681-unsplash.png" class="element__photo" alt="Гора Эльбрус">
-                <div class="element__info">
-                    <h2 class="element__text">Гора Эльбрус</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img src="./images/kirill-pershin-1556355-unsplash.png" class="element__photo" alt="Домбай">
-                <div class="element__info">
-                    <h2 class="element__text">Домбай</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img src="./images/kirill-pershin-1404681-unsplash.png" class="element__photo" alt="Гора Эльбрус">
-                <div class="element__info">
-                    <h2 class="element__text">Гора Эльбрус</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img src="./images/kirill-pershin-1556355-unsplash.png" class="element__photo" alt="Домбай">
-                <div class="element__info">
-                    <h2 class="element__text">Домбай</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img src="./images/kirill-pershin-1088404-unsplash.png" class="element__photo" alt="Карачаевск">
-                <div class="element__info">
-                    <h2 class="element__text">Карачаево-Черкессия</h2>
-                    <button class="button button_type_like element__button" type="button"></button>
-                </div>
-            </div>
         </section>
     </main>
     <footer class="footer">
@@ -84,7 +42,35 @@
             </form>
         </div>
     </div>
+    <div class="popup popup_add-place">
+        <button class="button button_type_close button_type_close-add-place" type="button"></button>
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <form class="popup__form popup__form_add-place" name="form" id="place-form" novalidate>
+                <input class="popup__input popup__input_type_place-name" type="text" name="place" id="place-input" value="" placeholder="Название"  minlength="2" maxlength="30" required>
+                <input class="popup__input popup__input_type_place-image" type="url" name="link" id="link-input"  value=""
+                       placeholder="Ссылка на картинку" required>
+                <button class="button button_type_save button_type_save-add-place">Сохранить</button>
+            </form>
+        </div>
+    </div>
+    <div class="photo-open popup">
+        <div class="photo-open__container">
+            <button class="button button_type_close button_type_close-photo" type="button"></button>
+            <img class="photo-open__image" src="https://example.com/" alt="Открытое фото">
+            <h2 class="photo-open__name">Новое место</h2>
+        </div>
+    </div>
+    <template class="elements__template" id="template-card">
+        <div class="element">
+            <button class="button button_type_urn" type="button"></button>
+            <img src="#" class="element__photo" alt="#">
+            <div class="element__info">
+                <h2 class="element__text"></h2>
+                <button class="button button_type_like element__button" type="button"></button>
+            </div>
+        </div>
+    </template>
     <script src="scripts/index.js"></script>
 </body>
-
 </html>

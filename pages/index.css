@@ -10,6 +10,7 @@
 @import url(../blocks/button/_type/button_type_like.css);
 @import url(../blocks/button/_type/button_type_save.css);
 @import url(../blocks/button/_type/button_type_close.css);
+@import url(../blocks/button/_type/button_type_urn.css);
 
 @import url(../blocks/content/content.css);
 
@@ -27,6 +28,10 @@
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
+
+@import url(../blocks/photo-open/__container/photo-open__container.css);
+@import url(../blocks/photo-open/__image/photo-open__image.css);
+@import url(../blocks/photo-open/__name/photo-open__name.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);

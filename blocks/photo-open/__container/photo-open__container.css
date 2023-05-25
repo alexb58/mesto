@@ -1,0 +1,6 @@
+.photo-open__container {
+    display: flex;
+    flex-direction: column;
+    margin: 90px 0 68px;
+    position: relative;
+}
