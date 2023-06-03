@@ -1,0 +1,21 @@
+.popup__error {
+    opacity: 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    margin-bottom: 13px;
+    width: 358px;
+    text-align: left;
+}
+
+.popup__error_visible {
+    opacity: 1;
+}
+
+@media screen and (max-width: 767px) {
+    .popup__input {
+        width: 238px;
+    }
+}

@@ -150,7 +150,7 @@ function setProfileValues(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileStatus.textContent = statusInput.value;
-    closePopup(evt.target);
+    closePopup(popupEditProfile);
 }
 
 function openPhotoPopupHandler(event) {
