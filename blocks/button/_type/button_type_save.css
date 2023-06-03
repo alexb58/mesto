@@ -14,6 +14,13 @@
     background: rgba(0, 0, 0, 0.8);
 }
 
+.button_type_save_disabled {
+    opacity: .2;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}
+
 @media screen and (max-width: 767px) {
     .button_type_save {
         width: 238px;
