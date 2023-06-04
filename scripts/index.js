@@ -1,25 +1,22 @@
 const root = document.querySelector('.body');
-const popup = root.querySelector('.popup_opened');
-const popupEditProfile = root.querySelector('.popup_edit-profile');
 const editButton = root.querySelector('.button_type_edit');
+const addButton = root.querySelector('.button_type_add');
+const popupCloseButtons = root.querySelectorAll('.button_type_close');
 const profileName = root.querySelector('.profile__name');
 const profileStatus = root.querySelector('.profile__status');
-const addButton = root.querySelector('.button_type_add');
+const popupEditProfile = root.querySelector('.popup_edit-profile');
 const addPlacePopup = root.querySelector('.popup_add-place');
 const placeForm = root.querySelector('.popup__form_add-place');
 const elementsContainer = root.querySelector('.elements');
 const photoPopup = root.querySelector('.photo-open');
 const photoImage = root.querySelector('.photo-open__image');
 const photoName = root.querySelector('.photo-open__name');
-const popupCloseButtons = root.querySelectorAll('.button_type_close');
 const nameInput = root.querySelector('.popup__input_type_name');
 const statusInput = root.querySelector('.popup__input_type_status');
 const placeInput = root.querySelector('.popup__input_type_place-name');
 const linkInput = root.querySelector('.popup__input_type_place-image');
-const cardTemplate = root.querySelector('#template-card').content;
-const cardElement = cardTemplate.cloneNode(true);
-const elementText = cardElement.querySelector('.element__text');
-const elementPhoto = cardElement.querySelector('.element__photo');
+const cardElement = document.querySelector('.elements__template').content;
+const placesList = document.querySelector('.elements');
 
 const initialCards = [
     {
@@ -54,38 +51,18 @@ const initialCards = [
     },
 ];
 
-class Card {
-    constructor(data, cardSelector) {
-        this._name = data.name;
-        this._link = data.link;
-        this._cardSelector = cardSelector;
-    }
-
-    _getTemplate() {
-        const cardTemplate = document.querySelector(this._cardSelector).content;
-        return cardTemplate.cloneNode(true);
-    }
-
-    generateCard() {
-        this._element = this._getTemplate();
-        const elementText = this._element.querySelector('.element__text');
-        const cardImage = this._element.querySelector('.element__photo');
-        elementText.textContent = this._name;
-        cardImage.src = this._link;
-        cardImage.alt = this._name;
-        return this._element;
-    }
+function createCard(name, image) {
+    const placeCard = cardElement.cloneNode(true);
+    const cardName = placeCard.querySelector('.element__text');
+    const cardImage = placeCard.querySelector('.element__photo');
+    cardName.textContent = name;
+    cardImage.src = image;
+    cardImage.alt = name;
+    return placeCard;
 }
 
 function removeCard(cardElement) {
     cardElement.remove();
-}
-
-function createCardElement(name, link) {
-    elementText.textContent = name;
-    elementPhoto.src = link;
-    elementPhoto.alt = name;
-    return cardElement;
 }
 
 function addCardToContainer(cardElement) {
@@ -96,7 +73,7 @@ function handlePlaceFormSubmit(event) {
     event.preventDefault();
     const name = placeInput.value;
     const link = linkInput.value;
-    const newCard = createCardElement(name, link);
+    const newCard = createCard(name, link);
     addCardToContainer(newCard);
     event.target.reset();
     closePopup(addPlacePopup);
@@ -121,16 +98,8 @@ function openPopup(popup) {
 
 function closePopup(popup) {
     popup.removeEventListener('click', closePopupByOverlay);
-    window.addEventListener('keydown', (evt) => closePopupByEsc(evt, popup));
+    window.removeEventListener('keydown', (evt) => closePopupByEsc(evt, popup));
     popup.classList.remove('popup_opened');
-}
-
-function renderCards() {
-    initialCards.forEach((cardData) => {
-        const card = new Card(cardData, '#template-card');
-        const cardElement = card.generateCard();
-        addCardToContainer(cardElement);
-    });
 }
 
 function openEditProfilePopup() {
@@ -197,4 +166,7 @@ popupCloseButtons.forEach(function (button) {
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
 popupEditProfile.addEventListener('submit', setProfileValues);
 
-renderCards();
+initialCards.forEach((card) => {
+    const cardElement = createCard(card.name, card.link);
+    placesList.appendChild(cardElement);
+})
