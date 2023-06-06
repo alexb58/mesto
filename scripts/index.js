@@ -1,7 +1,7 @@
 const root = document.querySelector('.body');
 const editButton = root.querySelector('.button_type_edit');
 const addButton = root.querySelector('.button_type_add');
-const popupCloseButtons = root.querySelectorAll('.button_type_close');
+const closeButtons = document.querySelectorAll('.button_type_close');
 const profileName = root.querySelector('.profile__name');
 const profileStatus = root.querySelector('.profile__status');
 const popupEditProfile = root.querySelector('.popup_edit-profile');
@@ -84,21 +84,22 @@ function closePopupByOverlay(evt) {
     closePopup(popup);
 }
 
-function closePopupByEsc(evt, popup) {
+function closeByEscape(evt) {
     if (evt.key === 'Escape') {
-        closePopup(popup);
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
     }
 }
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
     popup.addEventListener('click', closePopupByOverlay);
-    window.addEventListener('keydown', (evt) => closePopupByEsc(evt, popup));
+    document.addEventListener('keydown', closeByEscape);
 }
 
 function closePopup(popup) {
     popup.removeEventListener('click', closePopupByOverlay);
-    window.removeEventListener('keydown', (evt) => closePopupByEsc(evt, popup));
+    document.removeEventListener('keydown', closeByEscape);
     popup.classList.remove('popup_opened');
 }
 
@@ -140,11 +141,6 @@ function openAddPlacePopupHandler() {
     openPopup(addPlacePopup);
 }
 
-function closePopupHandler() {
-    const popup = root.querySelector('.popup_opened');
-    closePopup(popup);
-}
-
 elementsContainer.addEventListener('click', (event) => {
     const target = event.target;
     if (target.classList.contains('button_type_like')) {
@@ -159,10 +155,10 @@ elementsContainer.addEventListener('click', (event) => {
 elementsContainer.addEventListener('click', openPhotoPopupHandler);
 editButton.addEventListener('click', openEditProfilePopupHandler);
 addButton.addEventListener('click', openAddPlacePopupHandler);
-popupCloseButtons.forEach(function (button) {
-    button.addEventListener('click', closePopupHandler);
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
 });
-
 placeForm.addEventListener('submit', handlePlaceFormSubmit);
 popupEditProfile.addEventListener('submit', setProfileValues);
 
