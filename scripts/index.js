@@ -20,6 +20,7 @@ const linkInput = root.querySelector('.popup__input_type_place-image');
 const placesList = document.querySelector('.elements');
 const popupProfileForm = popupEditProfile.querySelector('.popup__form');
 const popupCardForm = addPlacePopup.querySelector('.popup__form')
+const caption = photoPopup.querySelector('.photo-open__name');
 
 const initialCards = [
     {
@@ -64,7 +65,7 @@ const validationConfig = {
 }
 
 function addCardToContainer(cardElement) {
-    const card = new Card(cardElement, '#template-card');
+    const card = new Card(cardElement, '#template-card', handleCardClick);
     elementsContainer.prepend(card.generateCard());
 }
 
@@ -102,16 +103,10 @@ function closePopup(popup) {
     popup.classList.remove('popup_opened');
 }
 
-function openPhotoPopup (evt) {
-    const targetImage = evt.target;
-
-    photoImage.setAttribute('src', targetImage.src);
-    photoImage.setAttribute('alt', targetImage.alt);
-
-    const caption = photoPopup.querySelector('.photo-open__name');
-
-    caption.textContent = targetImage.alt;
-
+function handleCardClick(name, link) {
+    photoImage.setAttribute('src', link);
+    photoImage.setAttribute('alt', name);
+    caption.textContent = name;
     openPopup(photoPopup);
 }
 
@@ -132,7 +127,7 @@ function addInitialCards () {
 }
 
 function addCard (data) {
-    const card = new Card(data, '#template-card');
+    const card = new Card(data, '#template-card', handleCardClick);
     placesList.prepend(card.generateCard());
 }
 
@@ -144,13 +139,13 @@ cardValidator.enableValidation();
 
 editButton.addEventListener('click', function () {
     returnProfileValues();
-    profileValidator.checkForm();
+    profileValidator.resetValidation();
     openPopup(popupEditProfile);
 });
 
 addButton.addEventListener('click', function () {
     popupCardForm.reset();
-    cardValidator.checkForm();
+    cardValidator.resetValidation();
     openPopup(addPlacePopup);
 });
 
@@ -163,5 +158,3 @@ placeForm.addEventListener('submit', handlePlaceFormSubmit);
 popupEditProfile.addEventListener('submit', setProfileValues);
 
 addInitialCards();
-
-export { openPhotoPopup }
