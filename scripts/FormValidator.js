@@ -1,5 +1,5 @@
 class FormValidator {
-	constructor (config, form) {
+	constructor(config, form) {
 		this._config = config;
 		this._form = form;
 		this._inputs = this._form.querySelectorAll(this._config.inputSelector);
@@ -9,7 +9,7 @@ class FormValidator {
 		this._validateForm = this._validateForm.bind(this);
 	}
 
-	_validateInput (input) {
+	_validateInput(input) {
 		if (input.validity.valid) {
 			this._hideValidationError(input);
 		} else {
@@ -17,7 +17,7 @@ class FormValidator {
 		}
 	}
 
-	_validateForm () {
+	_validateForm() {
 		const inputsArray = Array.from(this._inputs);
 
 		if (inputsArray.every(input => input.validity.valid)) {
@@ -27,39 +27,39 @@ class FormValidator {
 		}
 	}
 
-	_showValidationError (input) {
+	_showValidationError(input) {
 		input.classList.add(this._config.invalidInputClass);
 		const errorMessage = input.nextElementSibling;
 		errorMessage.textContent = input.validationMessage;
 		errorMessage.classList.add(this._config.activeErrorClass);
 	}
 
-	_hideValidationError (input) {
+	_hideValidationError(input) {
 		input.classList.remove(this._config.invalidInputClass);
 		const errorMessage = input.nextElementSibling;
 		errorMessage.classList.remove(this._config.activeErrorClass);
 	}
 
-	_disableSaveButton () {
+	_disableSaveButton() {
 		this._submitButton.setAttribute('disabled', 'disabled');
 	}
 
-	_enableSaveButton () {
+	_enableSaveButton() {
 		this._submitButton.removeAttribute('disabled');
 	}
 
-	_setEventListeners () {
+	_setEventListeners() {
 		this._inputs.forEach(input => input.addEventListener('input', () => {
 			this._validateInput(input);
 			this._validateForm();
 		}));
 	}
 
-	enableValidation () {
+	enableValidation() {
 		this._setEventListeners();
 	}
 
-	checkForm () {
+	resetValidation() {
 		const formIsValid = this._form.checkValidity();
 
 		this._inputs.forEach((input) => this._hideValidationError(input));
