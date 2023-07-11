@@ -17,7 +17,6 @@ const nameInput = root.querySelector('.popup__input_type_name');
 const statusInput = root.querySelector('.popup__input_type_status');
 const placeInput = root.querySelector('.popup__input_type_place-name');
 const linkInput = root.querySelector('.popup__input_type_place-image');
-const placesList = document.querySelector('.elements');
 const popupProfileForm = popupEditProfile.querySelector('.popup__form');
 const popupCardForm = addPlacePopup.querySelector('.popup__form')
 const caption = photoPopup.querySelector('.photo-open__name');
@@ -64,9 +63,14 @@ const validationConfig = {
 	invalidInputClass: 'popup__input_type_error'
 }
 
+function createCard (item) {
+    const card = new Card(item, '#template-card', handleCardClick);
+    return card.generateCard()
+}
+
 function addCardToContainer(cardElement) {
-    const card = new Card(cardElement, '#template-card', handleCardClick);
-    elementsContainer.prepend(card.generateCard());
+    const card = createCard(cardElement);
+    elementsContainer.prepend(card);
 }
 
 function handlePlaceFormSubmit(event) {
@@ -81,7 +85,9 @@ function handlePlaceFormSubmit(event) {
 
 function closePopupByOverlay(evt) {
     const popup = evt.target;
-    closePopup(popup);
+    if (popup === evt.currentTarget) {
+        closePopup(popup);
+    }
 }
 
 function closeByEscape(evt) {
@@ -117,18 +123,13 @@ function setProfileValues(evt) {
     closePopup(popupEditProfile);
 }
 
-function returnProfileValues () {
+function fillProfileInputs() {
     nameInput.value = profileName.textContent;
     statusInput.value = profileStatus.textContent;
 }
 
 function addInitialCards () {
-    initialCards.forEach(data => addCard(data));
-}
-
-function addCard (data) {
-    const card = new Card(data, '#template-card', handleCardClick);
-    placesList.prepend(card.generateCard());
+    initialCards.forEach(item => addCardToContainer(item));
 }
 
 const profileValidator = new FormValidator(validationConfig, popupProfileForm);
@@ -138,7 +139,7 @@ const cardValidator = new FormValidator(validationConfig, popupCardForm);
 cardValidator.enableValidation();
 
 editButton.addEventListener('click', function () {
-    returnProfileValues();
+    fillProfileInputs();
     profileValidator.resetValidation();
     openPopup(popupEditProfile);
 });
