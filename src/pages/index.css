@@ -29,6 +29,7 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 
+@import url(../blocks/photo-open/photo-open.css);
 @import url(../blocks/photo-open/__container/photo-open__container.css);
 @import url(../blocks/photo-open/__image/photo-open__image.css);
 @import url(../blocks/photo-open/__name/photo-open__name.css);

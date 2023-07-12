@@ -52,12 +52,13 @@ const userInfo = new UserInfo({
     userDescriptionSelector: '.profile__status'
 });
 
+const createCard = (data) => {
+    return new Card(data, '#template-card', popupFullPic.open).generateCard();
+};
+
 const cardsSection = new Section({
     items: initialCards,
-    renderer: (data) => {
-        const cardElement = new Card(data, '#template-card', popupFullPic.open).generateCard();
-        cardsSection.addItem(cardElement);
-    }
+    renderer: (data) => { cardsSection.addItem(createCard(data)); }
 }, cardGridSelector);
 
 const popupProfile = new PopupWithForm(
@@ -80,8 +81,7 @@ const popupCard = new PopupWithForm(
         data.name = values.place;
         data.link = values.image;
 
-        const cardElement = new Card(data, '#template-card', popupFullPic.open).generateCard();
-        cardsSection.addOnTopItem(cardElement);
+        cardsSection.addOnTopItem(createCard(data));
 
         popupCard.close();
     }
