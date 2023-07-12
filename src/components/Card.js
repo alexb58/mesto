@@ -1,9 +1,6 @@
 export default class Card {
 	constructor(data, template, handleCardClick) {
 		this._data = data;
-		this._name = data.name;
-		this._link = data.link;
-		this._alt = data.alt;
 		this._template = template;
 		this._handleCardClick = handleCardClick;
 
@@ -17,9 +14,9 @@ export default class Card {
 		this._buttonDelete = this._element.querySelector('.button_type_urn');
 		this._elementPhoto = this._element.querySelector('.element__photo');
 
-		this._element.querySelector('.element__text').textContent = this._name;
-		this._elementPhoto.setAttribute('src', this._link);
-		this._elementPhoto.setAttribute('alt', this._alt || this._name);
+		this._element.querySelector('.element__text').textContent = this._data.name;
+		this._elementPhoto.setAttribute('src', this._data.link);
+		this._elementPhoto.setAttribute('alt', this._data.alt || this._data.name);
 
 		this._setEventListeners();
 
