@@ -64,8 +64,6 @@ const cardsSection = new Section({
 const popupProfile = new PopupWithForm(
     popupProfileSelector,
     (evt, values) => {
-        evt.preventDefault();
-
         userInfo.setUserInfo(values);
 
         popupProfile.close();
@@ -75,9 +73,8 @@ const popupProfile = new PopupWithForm(
 const popupCard = new PopupWithForm(
     popupAddPlaceSelector,
     (evt, values) => {
-        evt.preventDefault();
-
         const data = {};
+
         data.name = values.place;
         data.link = values.image;
 
@@ -105,7 +102,6 @@ editButton.addEventListener('click', function () {
 });
 
 addButton.addEventListener('click', function () {
-    popupCardForm.reset();
     cardValidator.resetValidation();
     popupCard.open();
 });
