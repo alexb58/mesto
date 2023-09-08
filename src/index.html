@@ -15,6 +15,7 @@
         <section class="profile">
             <div class="profile__title">
                 <img src="<%=require('./images/jak.png')%>" class="profile__avatar" alt="Жак">
+                <button class="profile__avatar-button"></button>
                 <div class="profile__info">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
                     <button class="button button_type_edit" type="button"></button>
@@ -29,6 +30,24 @@
     <footer class="footer">
         <p class="footer__copyright">© 2020 Mesto Russia</p>
     </footer>
+    <div class="popup popup-delete">
+        <button class="button button_type_close button_type_close-delete" type="button"></button>
+        <div class="popup__container popup__container_popup-delete">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <button class="button button_type_save button_type_delete">Да</button>
+        </div>
+    </div>
+    <div class="popup popup-avatar">
+        <button class="button button_type_close button_type_close-avatar" type="button"></button>
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form popup__form_avatar" name="avatar-form" novalidate>
+                <input class="popup__input popup__input_avatar" name="avatar" type="url" placeholder="Ссылка на фото" id="avatar-input" autocomplete="off" value required>
+                <span class="popup__error"></span>
+                <button class="button button_type_save button_type_save-avatar">Сохранить</button>
+            </form>
+        </div>
+    </div>
     <div class="popup popup_edit-profile">
         <button class="button button_type_close" type="button"></button>
         <div class="popup__container">
@@ -67,11 +86,12 @@
     </div>
     <template class="elements__template" id="template-card">
         <div class="element">
-            <button class="button button_type_urn" type="button"></button>
             <img src="#" class="element__photo" alt="#">
             <div class="element__info">
                 <h2 class="element__text"></h2>
-                <button class="button button_type_like element__button" type="button"></button>
+                <button class="button button_type_like element__button" type="button">
+                    <p class="element__counter">0</p>
+                </button>
             </div>
         </div>
     </template>

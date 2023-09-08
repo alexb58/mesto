@@ -20,9 +20,12 @@ export default class FormValidator {
 	_validateForm() {
 		const inputsArray = Array.from(this._inputs);
 
+		console.log("formIsValid", inputsArray)
 		if (inputsArray.every(input => input.validity.valid)) {
+			console.log("Valid", inputsArray)
 			this._enableSaveButton();
 		} else {
+			console.log("noValid", inputsArray)
 			this._disableSaveButton();
 		}
 	}
@@ -64,6 +67,7 @@ export default class FormValidator {
 
 		this._inputs.forEach((input) => this._hideValidationError(input));
 
+		console.log("formIsValid", formIsValid)
 		if (formIsValid) {
 			this._enableSaveButton();
 		} else {
