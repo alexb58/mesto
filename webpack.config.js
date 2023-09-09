@@ -7,12 +7,14 @@ module.exports = {
     entry: { main: './src/pages/index.js' },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
+        filename: 'index.js',
         publicPath: ''
     },
     mode: 'development',
     devServer: {
-        contentBase: path.resolve(__dirname, './dist'),
+        static: {
+            directory: path.resolve(__dirname, './dist')
+        },
         compress: true,
         port: 8080,
         open: true
