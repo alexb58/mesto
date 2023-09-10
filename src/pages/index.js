@@ -9,45 +9,31 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupConfirm from '../components/PopupConfirm.js';
 import Section from '../components/Section.js';
 
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.button_type_save',
-    inputErrorSelector: '.popup__error',
-    activeErrorClass: 'popup__error_visible',
-    invalidInputClass: 'popup__input_type_error'
-}
+import {
+    cardGridSelector,
+    popupConfirmDeleteSelector,
+    popupAvatarSelector,
+    popupAddPlaceSelector,
+    popupProfileSelector,
+    popupPhotoOpenSelector,
+    popupProfileForm,
+    popupCardForm,
+    popupAvatarForm,
+    updateAvatarButton,
+    editButton,
+    addButton,
+    nameInput,
+    statusInput,
+    userSelectors,
+    validationConfig
+} from '../utils/constants.js';
 
 const api = new Api({
     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-74',
     authorization: '3b79a02e-a358-4496-9475-d28fd1117162'
 });
 
-const cardGridSelector = '.elements';
-const popupProfileSelector = '.popup_edit-profile';
-const popupAddPlaceSelector = '.popup_add-place';
-const popupPhotoOpenSelector = '.photo-open';
-const popupConfirmDeleteSelector = '.popup-delete';
-const popupAvatarSelector = '.popup-avatar';
-
-const root = document.querySelector('.body');
-const updateAvatarButton = document.querySelector('.profile__avatar-button');
-const popupAvatarElement = document.querySelector(popupAvatarSelector);
-const editButton = root.querySelector('.button_type_edit');
-const addButton = root.querySelector('.button_type_add');
-const popupEditProfile = root.querySelector(popupProfileSelector);
-const popupAddPlace = root.querySelector(popupAddPlaceSelector);
-const nameInput = root.querySelector('.popup__input_type_name');
-const statusInput = root.querySelector('.popup__input_type_status');
-const popupProfileForm = popupEditProfile.querySelector('.popup__form');
-const popupCardForm = popupAddPlace.querySelector('.popup__form')
-const popupAvatarForm = popupAvatarElement.querySelector('.popup__form');
-
-const userInfo = new UserInfo({
-    userNameSelector: '.profile__name',
-    userDescriptionSelector: '.profile__status',
-    userAvatarSelector: '.profile__avatar'
-});
+const userInfo = new UserInfo(userSelectors);
 
 const popupProfile = new PopupWithForm(
     popupProfileSelector,
@@ -69,6 +55,26 @@ const popupProfile = new PopupWithForm(
     }
 );
 
+function createCard(data) {
+    const cardInstance = new Card(
+        data,
+        '#template-card',
+        popupFullPic.open,
+        confirmDeletePopup.open,
+        (cardId, isLiked) => {
+            api.toggleLike(cardId, isLiked)
+                .then(res => {
+                    cardInstance.toggleLike(res.likes.length);
+                })
+                .catch(err => {
+                    console.log(`Что-то пошло не так при изменении лайка: ${err}`);
+                });
+        }
+    );
+
+    return cardInstance
+}
+
 const popupCard = new PopupWithForm(
     popupAddPlaceSelector,
     (evt, values) => {
@@ -82,8 +88,9 @@ const popupCard = new PopupWithForm(
 
         api.postCard(data)
             .then(res => {
-                const newCard = new Card(data, '#template-card', popupFullPic.open, confirmDeletePopup.open, api.toggleLike);
+                const newCard = createCard(data);
                 newCard.id = res._id;
+                console.log(newCard.data, 'newCard')
                 newCard.data.author = res.owner.name;
 
                 const cardElement = newCard.generateCard();
@@ -125,10 +132,10 @@ const popupAvatar = new PopupWithForm(
 
 const confirmDeletePopup = new PopupConfirm(
     popupConfirmDeleteSelector,
-    (cardId) => {
+    (card) => {
         confirmDeletePopup.renderLoading(true);
 
-        api.deleteCard(cardId)
+        api.deleteCard(card.id)
             .then(() => {
                 confirmDeletePopup.card.removeCard();
                 confirmDeletePopup.renderLoading(false);
@@ -136,6 +143,7 @@ const confirmDeletePopup = new PopupConfirm(
             })
             .catch(err => {
                 console.log(`Что-то пошло не так: ${err}`);
+                confirmDeletePopup.renderLoading(false);
                 confirmDeletePopup.showResponseError(err);
             });
     }
@@ -199,7 +207,7 @@ Promise.all([api.fetchUserInfo(), api.fetchInitialCards()])
                 data.isLiked = true;
             }
 
-            const card = new Card(data, '#template-card', popupFullPic.open, confirmDeletePopup.open, api.toggleLike).generateCard();
+            const card = createCard(data).generateCard();
             cardsSection.addItem(card);
         });
     })

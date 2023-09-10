@@ -13,7 +13,8 @@ export default class Card {
 		this.isLiked = data.isLiked;
 
 		this.removeCard = this.removeCard.bind(this);
-		this._setLike = this._setLike.bind(this);
+		this.toggleLike = this.toggleLike.bind(this);
+		this._likeHandler = this._likeHandler.bind(this);
 		this._deleteButtonHandler = this._deleteButtonHandler.bind(this);
 	}
 
@@ -21,7 +22,6 @@ export default class Card {
 		this._element = this._getTemplate();
 		this.buttonLike = this._element.querySelector('.button_type_like');
 		this.cardLikesCounter = this._element.querySelector('.element__counter')
-		this._buttonDelete = this._element.querySelector('.button_type_urn');
 		this._elementPhoto = this._element.querySelector('.element__photo');
 
 		this._element.querySelector('.element__text').textContent = this.data.name;
@@ -53,35 +53,26 @@ export default class Card {
 		this._element = null;
 	}
 
-	_setLike() {
-		this._likeHandler(this.id, this.isLiked)
-			.then(res => {
-				this.buttonLike.classList.toggle('element__button_active');
+	toggleLike(likesLength) {
+		this.buttonLike.classList.toggle('element__button_active');
 
-				this.isLiked = !this.isLiked;
-				this.likes = res.likes.length;
-				this.cardLikesCounter.textContent = this.likes;
-			})
-			.catch(err => {
-				console.log(`Что-то пошло не так: ${err}`);
-			});
+		this.isLiked = !this.isLiked;
+		this.likes = likesLength;
+		this.cardLikesCounter.textContent = this.likes;
 	}
 
 	_setEventListeners() {
-		this.buttonLike.addEventListener('click', this._setLike);
+		this.buttonLike.addEventListener('click', () => {
+			this._likeHandler(this.id, this.isLiked);
+		});
 		this._elementPhoto.addEventListener('click', () => {
 			this._cardClickHandler(this.data);
 		});
 	}
 
-	insertRemoveButton () {
-		const label = this._element.querySelector('.element__info');
-
-		label.insertAdjacentHTML('beforebegin',
-			'<button class="button_type_urn" type="button"></button>'
-		);
-
+	insertRemoveButton() {
 		const removeCardButton = this._element.querySelector('.button_type_urn');
+		removeCardButton.style.visibility = 'visible';
 		removeCardButton.addEventListener('click', () => {
 			this._deleteButtonHandler(this, this.id);
 		});

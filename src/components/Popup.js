@@ -5,7 +5,6 @@ export default class Popup {
 
         this._handleEscClose = this._handleEscClose.bind(this);
         this._handleOverlayClose = this._handleOverlayClose.bind(this);
-        this.open = this.open.bind(this);
         this.close = this.close.bind(this);
     }
 
