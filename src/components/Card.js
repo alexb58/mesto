@@ -1,5 +1,5 @@
 export default class Card {
-	constructor(data, template, cardClickHandler, deleteButtonHandler, likeHandler) {
+	constructor(data, userId, template, cardClickHandler, deleteButtonHandler, likeHandler) {
 		this.data = data;
 
 		this._template = template;
@@ -8,9 +8,10 @@ export default class Card {
 		this._likeHandler = likeHandler;
 
 		this.id = data.cardId;
-		this._isOwn = data.isOwn;
+		this.ownerId = data.ownerId;
 		this.likes = data.likes;
-		this.isLiked = data.isLiked;
+		this.userId = userId
+		this.isOwn = data.isOwn;
 
 		this.removeCard = this.removeCard.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
@@ -27,15 +28,17 @@ export default class Card {
 		this._element.querySelector('.element__text').textContent = this.data.name;
 		this._elementPhoto.setAttribute('src', this.data.link);
 		this._elementPhoto.setAttribute('alt', this.data.alt || this.data.name);
-		this.cardLikesCounter.textContent = this.likes ? this.likes : 0;
+		this.cardLikesCounter.textContent = this.likes && this.likes.length ? this.likes.length : 0;
 
 		this._setEventListeners();
 
-		if (this._isOwn) {
+		if (this.ownerId === this.userId) {
 			this.insertRemoveButton()
 		}
 
-		if (this.isLiked) { this.buttonLike.classList.add('element__button_active') }
+		if (this.likes && this.likes.some(like => like._id === this.userId)) {
+			this.buttonLike.classList.add('element__button_active')
+		}
 
 		return this._element;
 	}

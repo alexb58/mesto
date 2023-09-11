@@ -24,6 +24,9 @@ import {
     addButton,
     nameInput,
     statusInput,
+    avatarInput,
+    placeNameInput,
+    placeUrlInput,
     userSelectors,
     validationConfig
 } from '../utils/constants.js';
@@ -55,9 +58,10 @@ const popupProfile = new PopupWithForm(
     }
 );
 
-function createCard(data) {
+function createCard(data, userId) {
     const cardInstance = new Card(
         data,
+        userId,
         '#template-card',
         popupFullPic.open,
         confirmDeletePopup.open,
@@ -84,13 +88,11 @@ const popupCard = new PopupWithForm(
 
         data.name = values.place;
         data.link = values.image;
-        data.isOwn = true;
 
         api.postCard(data)
             .then(res => {
                 const newCard = createCard(data);
                 newCard.id = res._id;
-                console.log(newCard.data, 'newCard')
                 newCard.data.author = res.owner.name;
 
                 const cardElement = newCard.generateCard();
@@ -163,6 +165,7 @@ popupAvatar.setEventListeners();
 
 updateAvatarButton.addEventListener('click', function () {
     avatarValidator.resetValidation();
+    avatarInput.value = ""
     popupAvatar.open();
 });
 
@@ -176,6 +179,8 @@ editButton.addEventListener('click', function () {
 
 addButton.addEventListener('click', function () {
     cardValidator.resetValidation();
+    placeNameInput.value = ""
+    placeUrlInput.value = ""
     popupCard.open();
 });
 
@@ -196,18 +201,13 @@ Promise.all([api.fetchUserInfo(), api.fetchInitialCards()])
         initialCards.forEach(cardObject => {
             const data = {
                 cardId: cardObject._id,
-                isOwn: cardObject.owner._id === userID,
-                likes: cardObject.likes.length,
-                isLiked: false,
+                ownerId: cardObject.owner._id,
+                likes: cardObject.likes,
                 name: cardObject.name,
                 link: cardObject.link
             };
 
-            if (cardObject.likes.some(like => like._id === userID)) {
-                data.isLiked = true;
-            }
-
-            const card = createCard(data).generateCard();
+            const card = createCard(data, userID).generateCard();
             cardsSection.addItem(card);
         });
     })
