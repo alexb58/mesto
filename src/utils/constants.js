@@ -19,6 +19,11 @@ export const popupAddPlace = root.querySelector(popupAddPlaceSelector);
 export const nameInput = root.querySelector('.popup__input_type_name');
 export const statusInput = root.querySelector('.popup__input_type_status');
 
+export const avatarInput = root.querySelector('.popup__input_avatar');
+
+export const placeNameInput = root.querySelector('.popup__input_type_place-name');
+export const placeUrlInput = root.querySelector('.popup__input_type_place-image');
+
 export const popupProfileForm = popupEditProfile.querySelector('.popup__form');
 export const popupCardForm = popupAddPlace.querySelector('.popup__form')
 export const popupAvatarForm = popupAvatarElement.querySelector('.popup__form');
